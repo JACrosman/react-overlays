@@ -121,7 +121,8 @@ class Position extends React.Component {
       overlay,
       target,
       container,
-      this.props.containerPadding
+      this.props.containerPadding,
+      this.props.offset
     ));
   }
 }
@@ -145,6 +146,12 @@ Position.propTypes = {
    * Minimum spacing in pixels between container border and component border
    */
   containerPadding: PropTypes.number,
+  /**
+  * Offset for the element
+  */
+  offset: React.PropTypes.object,
+  /**
+
   /**
    * How to position the component relative to the target
    */

@@ -25,6 +25,12 @@ class Overlay extends React.Component {
     }
   }
 
+  updatePosition() {
+    if (this.position) {
+      this.position.updatePosition(this.position.getTarget());
+    }
+  }
+
   render() {
     let {
         container
@@ -35,6 +41,8 @@ class Overlay extends React.Component {
       , rootClose
       , children
       , transition: Transition
+      , offset
+      , portalClassName
       , ...props } = this.props;
 
 
@@ -50,7 +58,7 @@ class Overlay extends React.Component {
     // Position is be inner-most because it adds inline styles into the child,
     // which the other wrappers don't forward correctly.
     child = (
-      <Position {...{container, containerPadding, target, placement, shouldUpdatePosition}}>
+      <Position ref={(e) => { this.position = e; }} {...{container, containerPadding, target, offset, placement, shouldUpdatePosition}}>
         {child}
       </Position>
     );
@@ -86,7 +94,7 @@ class Overlay extends React.Component {
     }
 
     return (
-      <Portal container={container}>
+      <Portal container={container} className={portalClassName}>
         {child}
       </Portal>
     );
@@ -164,7 +172,12 @@ Overlay.propTypes = {
   /**
    * Callback fired after the Overlay finishes transitioning out
    */
-  onExited: PropTypes.func
+  onExited: PropTypes.func,
+
+  /**
+   * ClassName to use on the Portal element
+   */
+  portalClassName: React.PropTypes.string
 };
 
 
