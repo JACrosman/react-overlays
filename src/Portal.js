@@ -23,7 +23,12 @@ class Portal extends React.Component {
     container: PropTypes.oneOfType([
       componentOrElement,
       PropTypes.func
-    ])
+    ]),
+
+    /**
+     * Classname to use for the Portal Component
+     */
+    className: React.PropTypes.string
   };
 
   componentDidMount() {
@@ -53,6 +58,10 @@ class Portal extends React.Component {
   _mountOverlayTarget = () => {
     if (!this._overlayTarget) {
       this._overlayTarget = document.createElement('div');
+      
+      if (this.props.className) {
+        this._overlayTarget.className = this.props.className;
+      }
       this._portalContainerNode = getContainer(this.props.container, ownerDocument(this).body);
       this._portalContainerNode.appendChild(this._overlayTarget);
     }
