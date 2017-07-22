@@ -56,7 +56,7 @@ function getLeftDelta(left, overlayWidth, container, padding) {
 }
 
 export default function calculatePosition(
-  placement, overlayNode, target, container, padding, offset
+  placement, overlayNode, target, container, padding, offset = { left: 0, top: 0 }
 ) {
   const childOffset = container.tagName === 'BODY' ?
     getOffset(target) : getPosition(target, container);
